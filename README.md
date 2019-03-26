@@ -9,5 +9,6 @@ Everyday experiences at grocery stores tells us that one of the biggest deciding
 # Program features
 
 1. Read from "simulation" files that holds critical information needed to find the optimal solution
+  
   a. the files should include information such as the types of grocery, prices, stocks, payment methods, number of customers,      and the number of cashiers.
 2. 
