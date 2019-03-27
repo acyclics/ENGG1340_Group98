@@ -4,7 +4,7 @@ Everyday experiences at grocery stores tells us that one of the biggest deciding
 
 # Problem setting
 
-...
+This program will analysis the waiting line in the grocery store and figure out the best way to allocate the customer. We will divide our cashier into two parts; express line and normal line. If the customer wait more than 15 minutes in the line, the customer will leave without buying anything.This program will provide out the best solution for the company according to their style of buying.
 
 # Program features
 
