@@ -4,11 +4,13 @@ Everyday experiences at grocery stores tells us that one of the biggest deciding
 
 # Problem setting
 
-This program will analysis the waiting line in the grocery store and figure out the best way to allocate the customer. We will divide our cashier into two parts; express line and normal line. If the customer wait more than 15 minutes in the line, the customer will leave without buying anything.This program will provide out the best solution for the company according to their style of buying. 
+This program simulate a grocery store and, with the help of a mathematical model, figure out the best way to allocate all customers at the grocery store's checkout while maximizing profit. However, there is a catch: if a customer waits more than 15 minutes in queue, the customer will then leave without buying anything. Obviously, the grocery store would want to minimize the number of customers leaving, and they can do so by increasing the number of cashiers. Yet there's another catch: increasing amount of cashiers cost the grocery store. So, here we have a problem: how do we find the best way so that the grocery store could maximize their overall profit (cost of cashiers - revenue from customers)?
 
 A big problem is to determine a way to measure the "best way"; what is a best way? We decided that in order to find the optimal solution, the grocery store must be able to acommodate as many customers in as little time possible. This is because if customers leave after waiting too long, then the price they will pay for the goods is a "lost", which would otherwise be a revenue. If the grocery store can minimize the total time spent on acommodating customers, their corresponding revenue will increase as less customers would leave. Therefore, our program will find the optimal solution by minimizing time customers spent at cashier (perhaps by changing the number of cashiers, method of payments, etc).
 
 The problem also requires the simulation to be as realistic as possible. We noticed that from everyday experience, nothing is certain; some customers might spend longer at the cashier than others. So, to account for this stochastic nature of life, the simulation must include some factors that is random. For example, for two customers buying the same items, the first customer might spend a certain amount of time more than the other customer, just like in real life. Of course, this randomness will follow the normal distribution, as there is a lot of statistics that shown that most things in life follow the normal distribution.
+
+Last but not least, our simulation will emulate a grocery store as closely as possible. It takes into account most things a customer would find at a cashier when the program tries to find the optimal solution. The key factors we observed are the payment methods (paying with octopus card and/or cash is often quicker than paying with credit card), the number of cashiers, number of people
 
 # Program features
 
