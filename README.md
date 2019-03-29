@@ -4,7 +4,7 @@ Everyday experiences at grocery stores tells us that one of the biggest deciding
 
 # Problem setting
 
-This program will analysis the waiting line in the grocery store and figure out the best way to allocate the customer. We will divide our cashier into two parts; express line and normal line. If the customer wait more than 15 minutes in the line, the customer will leave without buying anything.This program will provide out the best solution for the company according to their style of buying.
+This program will analysis the waiting line in the grocery store and figure out the best way to allocate the customer. We will divide our cashier into two parts; express line and normal line. If the customer wait more than 15 minutes in the line, the customer will leave without buying anything.This program will provide out the best solution for the company according to their style of buying. A big problem is to determine a way to measure the "best way"; what is a best way? We decided that in order to find the optimal solution, the grocery store must be able to acommodate as many customers in as little time possible. This is because if customers leave after waiting too long, then the price they will pay for the goods is a "lost", which would otherwise be a revenue. If the grocery store can minimize the total time spent on acommodating customers, their corresponding revenue will increase. Therefore, our program will find the optimal solution by minimizing time customers spent at cashier (perhaps by changing the number of cashiers, method of payments, etc).
 
 # Program features
 
