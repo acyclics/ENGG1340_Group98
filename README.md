@@ -10,7 +10,7 @@ A big problem is to determine a way to measure the "best way"; what is a best wa
 
 The problem also requires the simulation to be as realistic as possible. We noticed that from everyday experience, nothing is certain; some customers might spend longer at the cashier than others. So, to account for this stochastic nature of life, the simulation must include some factors that is random. For example, for two customers buying the same items, the first customer might spend a certain amount of time more than the other customer, just like in real life. Of course, this randomness will follow the normal distribution, as there is a lot of statistics that shown that most things in life follow the normal distribution.
 
-Last but not least, our simulation will emulate a grocery store as closely as possible. It takes into account most things a customer would find at a cashier when the program tries to find the optimal solution. The key factors we observed are the payment methods (paying with octopus card and/or cash is often quicker than paying with credit card), the number of cashiers, number of people
+Last but not least, our simulation will emulate a grocery store as closely as possible. It takes into account most things a customer would find at a cashier when the program tries to find the optimal solution. The key factors we observed are the payment methods (paying with octopus card and/or cash is often quicker than paying with credit card), the number of cashiers, number of people, amount of groceries, and perhaps some other factors that the simulation will take into account should we see fit.
 
 # Program features
 
