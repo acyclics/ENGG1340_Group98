@@ -12,6 +12,7 @@ namespace numGenerator {
         seed_int: for the function "int RNG(int lowerbound, int upperbound)"
         seed_double: for the function "double RNG(double lowerbound, double upperbound)"
         seed_nd_int: for the function "int NDG(int mean, int standard_deviation)"
+        seed_nd_double: for the function "double NDG(double mean, double standard_deviation)"
     */
     unsigned seed_int = std::chrono::system_clock::now().time_since_epoch().count();
     unsigned seed_double = std::chrono::system_clock::now().time_since_epoch().count();
@@ -62,7 +63,70 @@ namespace numGenerator {
     }
 }
 
+namespace testcase {
+    using namespace numGenerator;
+    using namespace std;
+    /*
+        Class: randomVariable
+        Description: A container for a variable that needs a randomly generated value
+        Features: 1. Create a randomVariable and generate either random ints or doubles
+                  2. Label the randomVariable with string for better categorization
+                  3. Access the randomly generated values with "read" functions
+                  4. Three constructors, can initialize random variable with either int and/or double
+    */
+    randomVariable::randomVariable() {
+        // empty constructor
+    }
+    randomVariable::randomVariable(int lowerbound, int upperbound) {
+        rInt = RNG(lowerbound, upperbound);
+    }
+    randomVariable::randomVariable(double lowerbound, double upperbound) {
+        rDouble = RNG(lowerbound, upperbound);
+    }
+    void randomVariable::randomInt(int lowerbound, int upperbound) {
+        rInt = RNG(lowerbound, upperbound);
+    }
+    void randomVariable::randomDouble(double lowerbound, double upperbound) {
+        rDouble = RNG(lowerbound, upperbound);
+    }
+    void randomVariable::setLabel(string name) {
+        label = name;
+    }
+    int randomVariable::read_Int() {
+        return rInt;
+    }
+    double randomVariable::read_Double() {
+        return rDouble;
+    }
+    string randomVariable::read_Label() {
+        return label;
+    }
 
+    /*
+        Class: matrix
+        Description: Matrix to do computations
+        Features: 1. By default, constructor and "resize" function initializes all values to zero
+    */
+    matrix::matrix() {
+        // empty constructor
+    }
+    matrix::matrix(int n, int m) {
+        dim = {n, m};
+        mInt.resize(n, vector<int>(m, 0));
+        mDouble.resize(n, vector<double>(m, 0.0));
+    }
+    void matrix::resize(int n, int m) {
+        dim = {n, m};
+        mInt.resize(n, vector<int>(m, 0));
+        mDouble.resize(n, vector<double>(m, 0.0));
+    }
+    int& matrix::at_int(int i, int j) {
+        return mInt[i][j];
+    }
+    double& matrix::at_double(int i, int j) {
+        return mDouble[i][j];
+    }
+}
 
 
 
@@ -72,8 +136,10 @@ namespace numGenerator {
 // DEBUG BELOW, REMOVE WHEN ALL IS DONE
 #include <iostream>
 int main() {
-    using namespace std;
-    using namespace numGenerator;
-    cout << RNG(1.111, 99.9999);
+    using namespace testcase;
+    matrix A;
+    A.resize(3,3);
+    A.at_int(2,2) = 7;
+    cout << A.at_int(2,2);
     return 0;
 }
