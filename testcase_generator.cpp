@@ -106,25 +106,102 @@ namespace testcase {
         Class: matrix
         Description: Matrix to do computations
         Features: 1. By default, constructor and "resize" function initializes all values to zero
+                  2. Access value of matrix at position i, j with function valueAt
+                  3. Supports operations we need such as +, -, *, /
+                  4. equality operator to compare two matrices
     */
     matrix::matrix() {
         // empty constructor
     }
     matrix::matrix(int n, int m) {
         dim = {n, m};
-        mInt.resize(n, vector<int>(m, 0));
         mDouble.resize(n, vector<double>(m, 0.0));
     }
     void matrix::resize(int n, int m) {
         dim = {n, m};
-        mInt.resize(n, vector<int>(m, 0));
         mDouble.resize(n, vector<double>(m, 0.0));
     }
-    int& matrix::at_int(int i, int j) {
-        return mInt[i][j];
+    pair<int, int> matrix::dimension() {
+        return dim;
     }
-    double& matrix::at_double(int i, int j) {
+    double& matrix::valueAt(int i, int j) {
         return mDouble[i][j];
+    }
+    matrix matrix::operator+(matrix operand) {
+        if (operand.dimension() != dimension()) {
+            return *this;
+        }
+        matrix result;
+        result.resize(dim.first, dim.second);
+        for (int i(0); i < dim.first; ++i) {
+            for (int j(0); j < dim.second; ++j) {
+                result.valueAt(i, j) = valueAt(i, j) + operand.valueAt(i, j);
+            }
+        }
+        return result;
+    }
+    matrix matrix::operator-(matrix operand) {
+        if (operand.dimension() != dimension()) {
+            return *this;
+        }
+        matrix result;
+        result.resize(dim.first, dim.second);
+        for (int i(0); i < dim.first; ++i) {
+            for (int j(0); j < dim.second; ++j) {
+                result.valueAt(i, j) = valueAt(i, j) - operand.valueAt(i, j);
+            }
+        }
+        return result;
+    }
+    bool matrix::operator==(matrix operand) {
+        if (dimension() != operand.dimension()) {
+            return false;
+        }
+        for (int i(0); i < dim.first; ++i) {
+            for (int j(0); j < dim.second; ++j) {
+                if (valueAt(i, j) != operand.valueAt(i, j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    matrix matrix::operator*(matrix operand) {
+        if (dim.second != operand.dimension().first) {
+            return *this;
+        }
+        matrix result;
+        result.resize(dim.first, operand.dimension().second);
+        for (int i(0); i < dim.first; ++i) {
+            for (int j(0); j < operand.dimension().second; ++j) {
+                double dotProduct(0);   // first compute dot product
+                for (int c(0); c < dim.first; ++c) {
+                    dotProduct += valueAt(i, c) * operand.valueAt(c, j);
+                }
+                result.valueAt(i, j) = dotProduct;
+            }
+        }
+        return result;
+    }
+    matrix matrix::operator*(double factor) {
+        matrix result;
+        result.resize(dim.first, dim.second);
+        for (int i(0); i < dim.first; ++i) {
+            for (int j(0); j < dim.second; ++j) {
+                result.valueAt(i, j) = factor * valueAt(i, j);
+            }
+        }
+        return result;
+    }
+    matrix matrix::operator/(double denominator) {
+        matrix result;
+        result.resize(dim.first, dim.second);
+        for (int i(0); i < dim.first; ++i) {
+            for (int j(0); j < dim.second; ++j) {
+                result.valueAt(i, j) = valueAt(i, j) / denominator;
+            }
+        }
+        return result;
     }
 }
 
@@ -138,8 +215,18 @@ namespace testcase {
 int main() {
     using namespace testcase;
     matrix A;
-    A.resize(3,3);
-    A.at_int(2,2) = 7;
-    cout << A.at_int(2,2);
+    A.resize(2,2);
+    A.valueAt(0, 0) = 2;
+    A.valueAt(0, 1) = 3;
+    A.valueAt(1, 0) = 4;
+    A.valueAt(1, 1) = 5;
+    matrix B = A;
+    matrix C = A * B;
+    for (int i(0); i < C.dimension().first; ++i) {
+        for (int j(0); j < C.dimension().second; ++j) {
+            cout << C.valueAt(i, j) << " ";
+        }
+        cout << "\n";
+    }
     return 0;
 }

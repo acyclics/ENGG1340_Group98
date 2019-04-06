@@ -35,14 +35,19 @@ namespace testcase {
     */
     class matrix {
         pair<int, int> dim = {0, 0};
-        vector<vector<int>> mInt;
         vector<vector<double>> mDouble;
         public:
         matrix();
         matrix(int n, int m);
         void resize(int n, int m);
-        int& at_int(int i, int j);
-        double& at_double(int i, int j);
+        pair<int, int> dimension();
+        double& valueAt(int i, int j);
+        matrix operator+(matrix operand);
+        matrix operator-(matrix operand);
+        bool operator==(matrix operand);
+        matrix operator*(matrix operand);
+        matrix operator*(double factor);
+        matrix operator/(double denominator);
     };
 }
 
