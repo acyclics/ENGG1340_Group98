@@ -6,6 +6,7 @@
 #include "testcase_generator.h"
 
 namespace numGenerator {
+    using namespace std;
     /*
         seed: Contains information required to generate random numbers.
               These variables, in most cases, should only be generated once.
@@ -18,6 +19,10 @@ namespace numGenerator {
     unsigned seed_double = std::chrono::system_clock::now().time_since_epoch().count();
     unsigned seed_nd_int = std::chrono::system_clock::now().time_since_epoch().count();
     unsigned seed_nd_double = std::chrono::system_clock::now().time_since_epoch().count();
+    mt19937 generator_int (seed_int);
+    mt19937 generator_double (seed_double);
+    mt19937 generator_nd_int (seed_nd_int);
+    mt19937 generator_nd_double (seed_nd_double);
 
     /*
         Function: Random number generator (RNG)
@@ -29,16 +34,12 @@ namespace numGenerator {
                      that range from 0 to 4294967295 (more than enough for our simulator).
     */
     int RNG(int lowerbound, int upperbound) {
-        using namespace std;
-        mt19937 generator (seed_int);
         uniform_int_distribution<int> normalize(lowerbound, upperbound);    // uniform distribution (int)
-        return normalize(generator);
+        return normalize(generator_int);
     }
     double RNG(double lowerbound, double upperbound) {
-        using namespace std;
-        mt19937 generator (seed_double);
         uniform_real_distribution<double> normalize(lowerbound, upperbound);    // uniform distribution (double)
-        return normalize(generator);
+        return normalize(generator_double);
     }
 
     /*
@@ -50,16 +51,12 @@ namespace numGenerator {
                      that range from 0 to 4294967295 (more than enough for our simulator).
     */
     int NDG(int mean, int standard_deviation) {
-        using namespace std;
-        mt19937 generator (seed_nd_int);
         normal_distribution<int> distribution(mean, standard_deviation);    // int distribution
-        return distribution(generator);
+        return distribution(generator_nd_int);
     }
     double NDG(double mean, double standard_deviation) {
-        using namespace std;
-        mt19937 generator (seed_nd_double);
         normal_distribution<double> distribution(mean, standard_deviation);    // int distribution
-        return distribution(generator);
+        return distribution(generator_nd_double);
     }
 }
 
@@ -203,6 +200,39 @@ namespace testcase {
         }
         return result;
     }
+
+    /*
+        Class: test case generator
+        Description: returns a matrix containing all testcases, as well as generate a file containing all cases
+        Features: 1. default test-case constraints range from 0-100 of type int
+                  2. generates a number of testcases (user defined) and store it into a matrix
+    */
+    tcGenerator::tcGenerator(int noOfTestcases, int noOfVariables) {
+        numberOfTestcases = noOfTestcases;
+        numberOfVariables = noOfVariables;
+        testcases.resize(numberOfTestcases, numberOfVariables);
+        constraints.resize(numberOfVariables, make_pair(make_pair(0, 100), "int"));
+    }
+    void tcGenerator::editConstraints(int no, double lowerbound, double upperbound, string type) {
+        constraints[no] = make_pair(make_pair(lowerbound, upperbound), type);   // 0-based index
+    }
+    void tcGenerator::generate() {
+        randomVariable rInt, rDouble;
+        for (int row(0); row < numberOfTestcases; ++row) {
+            for (int col(0); col < numberOfVariables; ++col) {
+                double randomValue = 0;
+                if (constraints[col].second == "int") {
+                    rInt.randomInt((int)constraints[col].first.first, (int)constraints[col].first.second);
+                    randomValue = rInt.read_Int();
+                }
+                else if (constraints[col].second == "double") {
+                    rDouble.randomDouble((double)constraints[col].first.first, (double)constraints[col].first.second);
+                    randomValue = rDouble.read_Double();
+                }
+                testcases.valueAt(row, col) = randomValue;
+            }
+        }
+    }
 }
 
 
@@ -214,19 +244,13 @@ namespace testcase {
 #include <iostream>
 int main() {
     using namespace testcase;
-    matrix A;
-    A.resize(2,2);
-    A.valueAt(0, 0) = 2;
-    A.valueAt(0, 1) = 3;
-    A.valueAt(1, 0) = 4;
-    A.valueAt(1, 1) = 5;
-    matrix B = A;
-    matrix C = A * B;
-    for (int i(0); i < C.dimension().first; ++i) {
-        for (int j(0); j < C.dimension().second; ++j) {
-            cout << C.valueAt(i, j) << " ";
-        }
-        cout << "\n";
-    }
+    
+    tcGenerator gen(5, 5);
+    gen.editConstraints(0, 0.0, 100.0, "double");
+    gen.editConstraints(1, 1000.0, 2000.0, "double");
+    gen.editConstraints(2, 0, 100, "int");
+    gen.editConstraints(3, 1, 2000, "int");
+    gen.editConstraints(4, 0.0, 1.0, "double");
+    gen.generate();
     return 0;
 }

@@ -49,6 +49,21 @@ namespace testcase {
         matrix operator*(double factor);
         matrix operator/(double denominator);
     };
+
+    /*
+        Class: test case generator
+        Description: returns a matrix containing all testcases, as well as generate a file containing all cases
+    */
+   class tcGenerator {
+       matrix testcases;
+       vector<pair<pair<double, double>, string>> constraints;
+       int numberOfTestcases = 0;
+       int numberOfVariables = 0;
+       public:
+       tcGenerator(int noOfTestcases, int noOfVariables);
+       void editConstraints(int no, double lowerbound, double upperbound, string type);
+       void generate();
+   };
 }
 
 #endif
