@@ -111,11 +111,11 @@ namespace testcase {
         // empty constructor
     }
     matrix::matrix(int n, int m) {
-        dim = {n, m};
+        dim = make_pair(n, m);
         mDouble.resize(n, vector<double>(m, 0.0));
     }
     void matrix::resize(int n, int m) {
-        dim = {n, m};
+        dim = make_pair(n, m);
         mDouble.resize(n, vector<double>(m, 0.0));
     }
     pair<int, int> matrix::dimension() {
@@ -241,16 +241,4 @@ namespace testcase {
 
 
 // DEBUG BELOW, REMOVE WHEN ALL IS DONE
-#include <iostream>
-int main() {
-    using namespace testcase;
-    
-    tcGenerator gen(5, 5);
-    gen.editConstraints(0, 0.0, 100.0, "double");
-    gen.editConstraints(1, 1000.0, 2000.0, "double");
-    gen.editConstraints(2, 0, 100, "int");
-    gen.editConstraints(3, 1, 2000, "int");
-    gen.editConstraints(4, 0.0, 1.0, "double");
-    gen.generate();
-    return 0;
-}
+

@@ -34,8 +34,8 @@ namespace testcase {
         Class: matrix
     */
     class matrix {
-        pair<int, int> dim = {0, 0};
-        vector<vector<double>> mDouble;
+        pair<int, int> dim = make_pair(0, 0);
+        vector<vector<double> > mDouble;
         public:
         matrix();
         matrix(int n, int m);
@@ -56,7 +56,7 @@ namespace testcase {
     */
    class tcGenerator {
        matrix testcases;
-       vector<pair<pair<double, double>, string>> constraints;
+       vector<pair<pair<double, double>, string> > constraints;
        int numberOfTestcases = 0;
        int numberOfVariables = 0;
        public:
