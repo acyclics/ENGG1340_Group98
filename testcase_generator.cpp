@@ -239,7 +239,7 @@ namespace testcase {
             for (int col(0); col < numberOfVariables; ++col) {
               cout << testcases.valueAt(row, col) << " ";
             }
-            cout << endl;
+            cout << "\n";
         }
     }
     int tcGenerator::getMatrixValue(int row, int col) {
