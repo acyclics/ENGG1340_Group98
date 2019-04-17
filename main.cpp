@@ -1,40 +1,17 @@
-#include "main.h"
-#include "testcase_generator.h"
-#include "testcase_generator.cpp"
 #include <iostream>
 
-void InitializeConstantMatrix()
-{
-  using namespace testcase;
-  matrix ConstantMatrix;
-  ConstantMatrix.valueAt(0, 0)=2;   // factor for ID0
-  ConstantMatrix.valueAt(0, 1)=5;   // factor for ID1
-  ConstantMatrix.valueAt(0, 2)=10;  // factor for ID2
-  ConstantMatrix.valueAt(0, 3)=7;   // factor for ID3
-  ConstantMatrix.valueAt(0, 4)=1;   // factor for ID4
-  ConstantMatrix.valueAt(0, 4)=20;  // factor for ID5
-}
+int main() {
+  using namespace std;
+  //step 1: testcase generator
+  //step 1A: set customer parameter: amount of item,random and influenced payment method
+  //step 1B: initial and generate testcase matrix
+  //step 2: similiator (start global timer)
+  //step 2A:setup cashiers and distribute customers to different cashiers in a period of time
+  //step 2B: once the first customer reach the cashiers, start the timer for that cashier.
+  //step 2C: for each occupied cashiers, once reached 15min, flush queue.
+  //step 2C: sum up the served customers for each cashiers
+  //step 2E:continue the loop until global timer reached
+  //step 3: caluculate ratio(n/c) and reiterate for the other n.
 
-int main()
-{
-  using namespace testcase;
-  cin>>N;
-  tcGenerator gen(N, 6);
-  /*
-  ID 0 - number of people in a group (at most 20)
-  ID 1 - payment method
-  (0 = CASH, 1 = Octopus Card, 2 = Credit Card paywave/ mobile payment, 3 = Credit Card with Signature )
-  ID 2 - amount of items (0- infinity)
-  ID 3 - types of item
-  (0 = lightweight items ~ below 5kg in total 1 = moderate weight items 5-15kg in total 2 = heavy items > 20 kg in total )
-  ID 4 - random factors(0-10)
-  ID 5 - express line (0= false , 1= true)
-  */
-  gen.editConstraints(0, 0, 20, "int");
-  gen.editConstraints(1, 0, 4, "int");
-  gen.editConstraints(2, 0, 256, "int");
-  gen.editConstraints(3, 0, 3, "int");
-  gen.editConstraints(4, 0.0, 10.0, "double");
-  gen.editConstraints(5, 0, 2, "int");
-  gen.generate();
+  //output
 }
