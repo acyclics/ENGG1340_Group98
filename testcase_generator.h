@@ -63,6 +63,7 @@ namespace testcase {
        tcGenerator(int noOfTestcases, int noOfVariables);
        void editConstraints(int no, double lowerbound, double upperbound, string type);
        void generate();
+       void printMatrix();
    };
 }
 

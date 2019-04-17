@@ -4,7 +4,7 @@
              to feed into simulator
 */
 #include "testcase_generator.h"
-
+#include <iostream>
 namespace numGenerator {
     using namespace std;
     /*
@@ -231,6 +231,14 @@ namespace testcase {
                 }
                 testcases.valueAt(row, col) = randomValue;
             }
+        }
+    }
+    void tcGenerator::printMatrix() {
+        for (int row(0); row < numberOfTestcases; ++row) {
+            for (int col(0); col < numberOfVariables; ++col) {
+              cout<<testcases.valueAt(row, col)<<" ";
+            }
+            cout << endl;
         }
     }
 }
