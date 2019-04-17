@@ -6,7 +6,7 @@ int main() {
   //step 1: testcase generator
   //step 1A: set customer parameter: amount of item,random and influenced payment method
   using namespace testcase;
-  cin>>numberofcustomer;
+  cin >> numberofcustomer;
   tcGenerator gen(numberofcustomer, 3);
   /*
   Matrix description
@@ -30,6 +30,6 @@ int main() {
   //testcase debug below
   gen.printMatrix();
   cout << gen.getMatrixValue(0,0);
-  cout<<"DONE"<<endl;
+  cout << "DONE\n";
   return 0;
 }

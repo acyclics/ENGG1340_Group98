@@ -237,7 +237,7 @@ namespace testcase {
     void tcGenerator::printMatrix() {
         for (int row(0); row < numberOfTestcases; ++row) {
             for (int col(0); col < numberOfVariables; ++col) {
-              cout<<testcases.valueAt(row, col)<<" ";
+              cout << testcases.valueAt(row, col) << " ";
             }
             cout << endl;
         }
