@@ -206,6 +206,7 @@ namespace testcase {
         Description: returns a matrix containing all testcases, as well as generate a file containing all cases
         Features: 1. default test-case constraints range from 0-100 of type int
                   2. generates a number of testcases (user defined) and store it into a matrix
+                  3. print the matrix out
     */
     tcGenerator::tcGenerator(int noOfTestcases, int noOfVariables) {
         numberOfTestcases = noOfTestcases;
@@ -240,6 +241,9 @@ namespace testcase {
             }
             cout << endl;
         }
+    }
+    int tcGenerator::getMatrixValue(int row, int col) {
+        return testcases.valueAt(row, col);
     }
 }
 

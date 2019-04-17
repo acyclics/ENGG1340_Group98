@@ -64,6 +64,7 @@ namespace testcase {
        void editConstraints(int no, double lowerbound, double upperbound, string type);
        void generate();
        void printMatrix();
+       int getMatrixValue(int row, int col);
    };
 }
 

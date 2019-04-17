@@ -1,4 +1,4 @@
-main.o: main.cpp testcase_generator.h
+main.o: main.cpp main.h testcase_generator.h
 	g++ -c $<
 
 testcase_generator.o: testcase_generator.cpp testcase_generator.h
