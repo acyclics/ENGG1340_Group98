@@ -1,6 +1,6 @@
 /*
     File: testcase_generator.cpp
-    Purpose: Generate N number of testcases (N is user-defined) 
+    Purpose: Generate N number of testcases (N is user-defined)
              to feed into simulator
 */
 #include "testcase_generator.h"
@@ -26,7 +26,7 @@ namespace numGenerator {
 
     /*
         Function: Random number generator (RNG)
-        Description: The random number generator randomly generates a number. 
+        Description: The random number generator randomly generates a number.
                      This number can then be the "value" of a variable.
         Features: 1. Generate a random number within lowerbound and upperbound (both are user-defined).
                   2. Overloaded with types int, double, to be used for different variables.
@@ -44,7 +44,7 @@ namespace numGenerator {
 
     /*
         Function: Normal distribution generator (NDG)
-        Description: The normal distribution generator generate random numbers according to the normal distribution. 
+        Description: The normal distribution generator generate random numbers according to the normal distribution.
         Features: 1. Generate a random number given the mean and standard deviation.
                   2. Overloaded with types int, double, to be used for different variables.
                   3. mt19937 is a Mersenne Twister is fast and can randomly generate numbers
@@ -242,9 +242,9 @@ namespace testcase {
 
 // DEBUG BELOW, REMOVE WHEN ALL IS DONE
 #include <iostream>
-int main() {
+/* int main() {
     using namespace testcase;
-    
+
     tcGenerator gen(5, 5);
     gen.editConstraints(0, 0.0, 100.0, "double");
     gen.editConstraints(1, 1000.0, 2000.0, "double");
@@ -253,4 +253,5 @@ int main() {
     gen.editConstraints(4, 0.0, 1.0, "double");
     gen.generate();
     return 0;
-}
+    testcases.valueAt(0, 0);
+} */
