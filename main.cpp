@@ -1,4 +1,6 @@
 #include <iostream>
+#include <map>
+#include <string>
 #include "testcase_generator.h"
 #include "main.h"
 int main() {
@@ -19,8 +21,16 @@ int main() {
   gen.editConstraints(2, 0, 1, "int");
   //step 1B: initial and generate testcase matrix
   gen.generate();
-  //step 2: similiator (start global timer)
+  //step 2: similiator (start global timer - main.h)
   //step 2A:setup cashiers and distribute customers to different cashiers in a period of time
+  //iterate day with different number of cashiers
+  for(int num_cashier(1); num_cashier<100; num_cashier++) {
+    for(int i(1); i<num_cashier; i++){
+      //setting up the cashier
+      cashier working_cashier[i];
+    }
+  }
+
   //step 2B: once the first customer reach the cashiers, start the timer for that cashier.
   //step 2C: for each occupied cashiers, once reached 15min, flush queue.
   //step 2C: sum up the served customers for each cashiers
