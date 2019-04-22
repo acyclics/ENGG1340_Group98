@@ -172,7 +172,7 @@ namespace testcase {
         for (int i(0); i < dim.first; ++i) {
             for (int j(0); j < operand.dimension().second; ++j) {
                 double dotProduct(0);   // first compute dot product
-                for (int c(0); c < dim.first; ++c) {
+                for (int c(0); c < operand.dimension().first; ++c) {
                     dotProduct += valueAt(i, c) * operand.valueAt(c, j);
                 }
                 result.valueAt(i, j) = dotProduct;

@@ -6,6 +6,8 @@
 #include <string>
 #include "testcase_generator.h"
 #include "main.h"
+#include "iomanip"
+#include "simulator.h"
 
 int main() {
   using namespace std;
@@ -52,16 +54,21 @@ int main() {
     Step 2: 
             Goal: Create simulator
             a. setup cashiers
-            b. distribute customers to different cashiers in a period of time
+            b. once the first customer reach the cashiers, start the timer for that cashier
+            c. for each occupied cashiers, once reached 15min, flush queue.
+            d. sum up the served customers for each cashiers
+            e. continue the loop until global timer reached
+            f. find optimal number of cashiers by finding the ratio number of cashiers / number of customers served
   */
+  for (int numberOfCashiers = 1; numberOfCashiers < 30; ++numberOfCashiers) {
+    long long customers_served = simulate(numberOfCashiers, numberOfCustomers, gen);
+    cout << left << fixed << setw(25) << "Number of cashiers:";
+    cout << setw(10) << numberOfCashiers;
+    cout << setw(33) << "Number of served customers:";
+    cout << setw(10) << customers_served;
+    cout << setw(12) << "Ratio:";
+    cout << setw(11) << (double)numberOfCashiers/(double)customers_served << "\n";
+  }
 
-  int numberOfCashiers = 1;
-
-  //step 2B: once the first customer reach the cashiers, start the timer for that cashier.
-  //step 2C: for each occupied cashiers, once reached 15min, flush queue.
-  //step 2C: sum up the served customers for each cashiers
-  //step 2E:continue the loop until global timer reached
-  //step 3: caluculate ratio(n/c) and reiterate for the other n.
-  
   return 0;
 }
