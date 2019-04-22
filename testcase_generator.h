@@ -9,6 +9,11 @@
 #include <string>
 #include <vector>
 
+namespace numGenerator {
+    int NDG(int mean, int standard_deviation);
+    double NDG(double mean, double standard_deviation);
+}
+
 namespace testcase {
     using namespace std;
     /*
@@ -55,14 +60,18 @@ namespace testcase {
         Description: returns a matrix containing all testcases, as well as generate a file containing all cases
     */
    class tcGenerator {
-       matrix testcases;
+       matrix testcases, timeConstants;
        vector<pair<pair<double, double>, string> > constraints;
        int numberOfTestcases = 0;
        int numberOfVariables = 0;
        public:
        tcGenerator(int noOfTestcases, int noOfVariables);
        void editConstraints(int no, double lowerbound, double upperbound, string type);
+       void editTimeConstants(int no, int timeConstant);
+       void editTimeConstants(int no, double timeConstant);
        void generate();
+       matrix returnTestcases();
+       matrix returnTimeConstants();
        void printMatrix();
        int getMatrixValue(int row, int col);
    };

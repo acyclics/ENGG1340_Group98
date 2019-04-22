@@ -1,45 +1,67 @@
+/*
+    File: main.cpp
+    Purpose: Combine all modules to find optimal solution to problem
+*/
 #include <iostream>
-#include <map>
 #include <string>
 #include "testcase_generator.h"
 #include "main.h"
+
 int main() {
   using namespace std;
-  //step 1: testcase generator
-  //step 1A: set customer parameter: amount of item,random and influenced payment method
   using namespace testcase;
-  cin >> numberofcustomer;
-  tcGenerator gen(numberofcustomer, 3);
+
   /*
-  Matrix description
-  ID:0 -- amount of goods
-  ID:1 -- payment method: 0:Cash 1:octopus card 2:credit card 3:electronic payment
-  ID:2 -- boolean for influenced payment 0:FALSE 1:TRUE
+    Step 1: 
+            Goal: Generate testcases
+            a. Let user define number of testcases
+            b. Setup customer parameters: amount of items, payment methods
+            c. Initialize and generate testcase matrix
   */
+
+  int numberOfCustomers = 0;
+  cin >> numberOfCustomers;
+  tcGenerator gen(numberOfCustomers, 2);
+
+  /*
+    Testcase description: 
+                          We placed the testcases into a matrix.
+                          Each row corresponds to a customer and 
+                          each column corresponds to a customer
+                          parameter.
+    Customer parameter:
+                          ID:0 -- amount of goods
+                          ID:1 -- payment method -- 1: Octopus card  
+                                                    2: Cash 
+                                                    3: Credit card 
+                                                    4: Electronic payment
+  */
+
   gen.editConstraints(0, 0, 100, "int");
-  gen.editConstraints(1, 0, 3, "int");
-  gen.editConstraints(2, 0, 1, "int");
-  //step 1B: initial and generate testcase matrix
+  gen.editTimeConstants(0, 5);          // each grocery is assumed to take 5 seconds for checkout
+
+  gen.editConstraints(1, 1, 4, "int");  // each payment method is given a multiplier according
+  gen.editTimeConstants(1, 3);          // to the theoretical amount of time needed.
+                                        // For example, Cash is given a multiplier of 2
+                                        // whereas Octopus card is given a multiplier of 1
+                                        // as Octopus card needs less moves by the customer
+                                        // to pay
   gen.generate();
-  //step 2: similiator (start global timer - main.h)
-  //step 2A:setup cashiers and distribute customers to different cashiers in a period of time
-  //iterate day with different number of cashiers
-  for(int num_cashier(1); num_cashier<100; num_cashier++) {
-    for(int i(1); i<num_cashier; i++){
-      //setting up the cashier
-      cashier working_cashier[i];
-    }
-  }
+
+  /*
+    Step 2: 
+            Goal: Create simulator
+            a. setup cashiers
+            b. distribute customers to different cashiers in a period of time
+  */
+
+  int numberOfCashiers = 1;
 
   //step 2B: once the first customer reach the cashiers, start the timer for that cashier.
   //step 2C: for each occupied cashiers, once reached 15min, flush queue.
   //step 2C: sum up the served customers for each cashiers
   //step 2E:continue the loop until global timer reached
   //step 3: caluculate ratio(n/c) and reiterate for the other n.
-
-  //testcase debug below
-  gen.printMatrix();
-  cout << gen.getMatrixValue(0,0);
-  cout << "DONE\n";
+  
   return 0;
 }

@@ -51,8 +51,8 @@ namespace numGenerator {
                      that range from 0 to 4294967295 (more than enough for our simulator).
     */
     int NDG(int mean, int standard_deviation) {
-        normal_distribution<int> distribution(mean, standard_deviation);    // int distribution
-        return distribution(generator_nd_int);
+        normal_distribution<double> distribution(mean, standard_deviation);    // int distribution
+        return (int)distribution(generator_nd_int);
     }
     double NDG(double mean, double standard_deviation) {
         normal_distribution<double> distribution(mean, standard_deviation);    // int distribution
@@ -213,6 +213,7 @@ namespace testcase {
         numberOfVariables = noOfVariables;
         testcases.resize(numberOfTestcases, numberOfVariables);
         constraints.resize(numberOfVariables, make_pair(make_pair(0, 100), "int"));
+        timeConstants.resize(numberOfVariables, 1);
     }
     void tcGenerator::editConstraints(int no, double lowerbound, double upperbound, string type) {
         constraints[no] = make_pair(make_pair(lowerbound, upperbound), type);   // 0-based index
@@ -234,6 +235,23 @@ namespace testcase {
             }
         }
     }
+    void tcGenerator::editTimeConstants(int no, int timeConstant) {
+        timeConstants.valueAt(no, 0) = timeConstant;
+    }
+    void tcGenerator::editTimeConstants(int no, double timeConstant) {
+        timeConstants.valueAt(no, 0) = timeConstant;
+    }
+    matrix tcGenerator::returnTestcases() {
+        return testcases;
+    }
+    matrix tcGenerator::returnTimeConstants() {
+        return timeConstants;
+    }
+    int tcGenerator::getMatrixValue(int i, int j) {
+        return testcases.valueAt(i, j);
+    }
+
+    #ifdef DEBUG
     void tcGenerator::printMatrix() {
         for (int row(0); row < numberOfTestcases; ++row) {
             for (int col(0); col < numberOfVariables; ++col) {
@@ -242,14 +260,5 @@ namespace testcase {
             cout << "\n";
         }
     }
-    int tcGenerator::getMatrixValue(int row, int col) {
-        return testcases.valueAt(row, col);
-    }
+    #endif
 }
-
-
-
-
-
-
-// DEBUG BELOW, REMOVE WHEN ALL IS DONE
