@@ -16,13 +16,16 @@ int main() {
   /*
     Step 1: 
             Goal: Generate testcases
-            a. Let user define number of testcases
+            a. Let user define number of testcases and maximum number of cashiers
             b. Setup customer parameters: amount of items, payment methods
             c. Initialize and generate testcase matrix
   */
 
-  int numberOfCustomers = 0;
+  int numberOfCustomers = 0, maxNumberOfCashiers = 0;
+  cout << left << setw(25) << "Number of customers: ";
   cin >> numberOfCustomers;
+  cout << setw(25) << "Number of cashiers: ";
+  cin >> maxNumberOfCashiers;
   tcGenerator gen(numberOfCustomers, 2);
 
   /*
@@ -60,7 +63,7 @@ int main() {
             e. continue the loop until global timer reached
             f. find optimal number of cashiers by finding the ratio number of cashiers / number of customers served
   */
-  for (int numberOfCashiers = 1; numberOfCashiers < 30; ++numberOfCashiers) {
+  for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers; ++numberOfCashiers) {
     long long customers_served = simulate(numberOfCashiers, numberOfCustomers, gen);
     cout << left << fixed << setw(25) << "Number of cashiers:";
     cout << setw(10) << numberOfCashiers;
