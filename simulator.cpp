@@ -6,14 +6,14 @@
 #include "simulator.h"
 #include "testcase_generator.h"
 
-/*
-    Struct: Cashier
-    Description: Stores the time a customer is spending at the cashier
-*/
 struct Customer {
     int checkoutTimeNeeded = 0;
 };
 
+/*
+    Class: Cashier
+    Description: Stores the time a customer is spending at the cashier
+*/
 class Cashier {
     public:
     int timer = 0;
