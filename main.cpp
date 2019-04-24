@@ -14,11 +14,12 @@ int main() {
   using namespace testcase;
 
   /*
-    Step 1: 
+    Step 1:
             Goal: Generate testcases
             a. Let user define number of testcases and maximum number of cashiers
             b. Setup customer parameters: amount of items, payment methods
             c. Initialize and generate testcase matrix
+            d. Initialize ratio and customers served array
   */
 
   int numberOfCustomers = 0, maxNumberOfCashiers = 0;
@@ -27,18 +28,20 @@ int main() {
   cout << setw(25) << "Number of cashiers: ";
   cin >> maxNumberOfCashiers;
   tcGenerator gen(numberOfCustomers, 2);
+  double ratio_array[maxNumberOfCashiers];
+  int customers_served_array[maxNumberOfCashiers];
 
   /*
-    Testcase description: 
+    Testcase description:
                           We placed the testcases into a matrix.
-                          Each row corresponds to a customer and 
+                          Each row corresponds to a customer and
                           each column corresponds to a customer
                           parameter.
     Customer parameter:
                           ID:0 -- amount of goods
-                          ID:1 -- payment method -- 1: Octopus card  
-                                                    2: Cash 
-                                                    3: Credit card 
+                          ID:1 -- payment method -- 1: Octopus card
+                                                    2: Cash
+                                                    3: Credit card
                                                     4: Electronic payment
   */
 
@@ -54,7 +57,7 @@ int main() {
   gen.generate();
 
   /*
-    Step 2: 
+    Step 2:
             Goal: Create simulator
             a. setup cashiers
             b. once the first customer reach the cashiers, start the timer for that cashier
@@ -71,7 +74,37 @@ int main() {
     cout << setw(10) << customers_served;
     cout << setw(12) << "Ratio:";
     cout << setw(11) << (double)numberOfCashiers/(double)customers_served << "\n";
+    customers_served_array[numberOfCashiers]=customers_served;
+    ratio_array[numberOfCashiers]=(double)numberOfCashiers/(double)customers_served;
   }
-
+  /*
+    Step 3:
+            Goal: Find the best number of cashiers according to maximum of customer served
+            a. iterate the array
+            b. store the maximum and mininium index
+            c. print the best and the Worst
+  */
+  int max_index=1,min_index=1;
+  for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers; ++numberOfCashiers) {
+    if(customers_served_array[numberOfCashiers]>customers_served_array[max_index]) {
+      max_index=numberOfCashiers;
+    }
+    if(customers_served_array[numberOfCashiers]<customers_served_array[min_index]) {
+      min_index=numberOfCashiers;
+    }
+  }
+  cout<<"\n";
+  cout << left << fixed << setw(30) <<"Best number of cashier:";
+  cout << setw(10) <<max_index;
+  cout << setw(33) << "Number of served customers:";
+  cout << setw(10) << customers_served_array[max_index];
+  cout << setw(12) <<"Ratio:";
+  cout << setw(11) <<ratio_array[max_index]<<"\n";
+  cout << left << fixed << setw(30) <<"Worst number of cashier:";
+  cout << setw(10) <<min_index;
+  cout << setw(33) << "Number of served customers:";
+  cout << setw(10) << customers_served_array[min_index];
+  cout << setw(12) <<"Ratio:";
+  cout << setw(11) << ratio_array[min_index]<<"\n";
   return 0;
 }
