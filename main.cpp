@@ -30,6 +30,7 @@ int main() {
   tcGenerator gen(numberOfCustomers, 2);
   double ratio_array[maxNumberOfCashiers];
   int customers_served_array[maxNumberOfCashiers];
+  double increment_avg=0;
 
   /*
     Testcase description:
@@ -81,30 +82,33 @@ int main() {
     Step 3:
             Goal: Find the best number of cashiers according to maximum of customer served
             a. iterate the array
-            b. store the maximum and mininium index
-            c. print the best and the Worst
+            b. find the average of increment and bottlenecked case
+            c. print the best and
   */
-  int max_index=1,min_index=1;
-  for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers; ++numberOfCashiers) {
-    if(customers_served_array[numberOfCashiers]>customers_served_array[max_index]) {
-      max_index=numberOfCashiers;
+  // find the average increment
+  int max_index=1;
+  for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers - 1; ++numberOfCashiers) {
+    increment_avg += customers_served_array[numberOfCashiers+1] - customers_served_array[numberOfCashiers];
+  }
+  increment_avg/=maxNumberOfCashiers*2;
+
+  // find the bottlenecked case
+  for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers - 1 ; ++numberOfCashiers) {
+    int increment_tmp = customers_served_array[numberOfCashiers+1] - customers_served_array[numberOfCashiers];
+    if((double)increment_tmp/numberOfCustomers> (double)increment_avg/numberOfCustomers) {
+      max_index=numberOfCashiers+1;
     }
-    if(customers_served_array[numberOfCashiers]<customers_served_array[min_index]) {
-      min_index=numberOfCashiers;
+    if(increment_avg < 10) {
+      max_index=1;
     }
   }
-  cout<<"\n";
+
+  cout << "\n";
   cout << left << fixed << setw(30) <<"Best number of cashier:";
   cout << setw(10) <<max_index;
   cout << setw(33) << "Number of served customers:";
   cout << setw(10) << customers_served_array[max_index];
   cout << setw(12) <<"Ratio:";
   cout << setw(11) <<ratio_array[max_index]<<"\n";
-  cout << left << fixed << setw(30) <<"Worst number of cashier:";
-  cout << setw(10) <<min_index;
-  cout << setw(33) << "Number of served customers:";
-  cout << setw(10) << customers_served_array[min_index];
-  cout << setw(12) <<"Ratio:";
-  cout << setw(11) << ratio_array[min_index]<<"\n";
   return 0;
 }
