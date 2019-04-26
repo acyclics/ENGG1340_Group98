@@ -28,9 +28,18 @@ int main() {
   cout << setw(25) << "Number of cashiers: ";
   cin >> maxNumberOfCashiers;
   tcGenerator gen(numberOfCustomers, 2);
-  double ratio_array[maxNumberOfCashiers];
-  int customers_served_array[maxNumberOfCashiers];
-  double increment_avg=0;
+
+  string user_input;
+  cout << setw(100) << "Do you know the average spending of each customer and cost of each cashier? (YES / NO):";
+  cin >> user_input;
+
+  int customer_average_spending = 0, cost_of_cashier = 0;
+  if (user_input == "YES") {
+    cout << left << setw(25) << "Average spending of customers: ";
+    cin >> customer_average_spending;
+    cout << setw(25) << "Cost of each cashier: ";
+    cin >> cost_of_cashier;
+  }
 
   /*
     Testcase description:
@@ -67,16 +76,23 @@ int main() {
             e. continue the loop until global timer reached
             f. find optimal number of cashiers by finding the ratio number of cashiers / number of customers served
   */
+
+  int *increment = new int[maxNumberOfCashiers + 1];
+  increment[0] = 0;
+  int minimum_customers_served = numeric_limits<int>::max();
+
   for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers; ++numberOfCashiers) {
     long long customers_served = simulate(numberOfCashiers, numberOfCustomers, gen);
+    increment[numberOfCashiers] = customers_served;
+    if (minimum_customers_served > customers_served) {
+      minimum_customers_served = customers_served;
+    }
     cout << left << fixed << setw(25) << "Number of cashiers:";
     cout << setw(10) << numberOfCashiers;
     cout << setw(33) << "Number of served customers:";
     cout << setw(10) << customers_served;
     cout << setw(12) << "Ratio:";
     cout << setw(11) << (double)numberOfCashiers/(double)customers_served << "\n";
-    customers_served_array[numberOfCashiers]=customers_served;
-    ratio_array[numberOfCashiers]=(double)numberOfCashiers/(double)customers_served;
   }
   /*
     Step 3:
@@ -85,30 +101,28 @@ int main() {
             b. find the average of increment and bottlenecked case
             c. print the best and
   */
-  // find the average increment
-  int max_index=1;
-  for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers - 1; ++numberOfCashiers) {
-    increment_avg += customers_served_array[numberOfCashiers+1] - customers_served_array[numberOfCashiers];
-  }
-  increment_avg/=maxNumberOfCashiers*2;
 
-  // find the bottlenecked case
-  for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers - 1 ; ++numberOfCashiers) {
-    int increment_tmp = customers_served_array[numberOfCashiers+1] - customers_served_array[numberOfCashiers];
-    if((double)increment_tmp/numberOfCustomers> (double)increment_avg/numberOfCustomers) {
-      max_index=numberOfCashiers+1;
+  int bottle_neck = 1;
+
+  for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers; ++numberOfCashiers) {
+    if (user_input == "YES") {
+      /* METHOD 1 */
+      if (customer_average_spending * increment[numberOfCashiers] < cost_of_cashier * numberOfCashiers) {
+        break;
+      }
     }
-    if(increment_avg < 10) {
-      max_index=1;
+    else {
+      /* METHOD 2 */
+      if (abs(increment[numberOfCashiers] - increment[numberOfCashiers - 1]) < minimum_customers_served * 0.9) {
+        break;
+      }
     }
+    bottle_neck = numberOfCashiers;
   }
 
-  cout << "\n";
-  cout << left << fixed << setw(30) <<"Best number of cashier:";
-  cout << setw(10) <<max_index;
-  cout << setw(33) << "Number of served customers:";
-  cout << setw(10) << customers_served_array[max_index];
-  cout << setw(12) <<"Ratio:";
-  cout << setw(11) <<ratio_array[max_index]<<"\n";
+  cout << bottle_neck << "\n";
+
+  delete[] increment;
+  
   return 0;
 }
