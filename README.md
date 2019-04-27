@@ -49,10 +49,10 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 
 2. Matrix multiplication achieves this:
 
-- Consider customer i. Customer i has "x" groceries and payment method "y". For each grocery, time needed to pay for it is 5 seconds. Also, let the time needed to use payment method "y" be 10 times "y". Then, the total amount of time a customer needs to checkout = 5x + 10y.
+- Consider customer **i**. Customer **i** has **x** groceries and payment method **y**. For each grocery, time needed to pay for it is 5 seconds. Also, let the time needed to use payment method **y** be 10 times **y**. Then, the total amount of time a customer needs to checkout = 5**x** + 10**y**.
 - The problem is that we have N number of customers, what is an efficient way to do all these computations? The answer is of course, with matrices.
-- Let A = "customers", where each row is a customer and each column be "x" and 'y". So, A is a N by 2 matrix. Also, let B = "time constants" where "5 seconds" is row 1 and "10 seconds" is row 2. So, B is a 2 by 1 matrix.
-- AB is a matrix multiplication and it gives us a N by 1 matrix, a.k.a vector, where entry "i" stores the total amount of time customer "i" needs to checkout at a cashier.
+- Let A = "customers", where each row is a customer and each column be **x** and **y**. So, A is a N by 2 matrix. Also, let B = "time constants" where "5 seconds" is row 1 and "10 seconds" is row 2. So, B is a 2 by 1 matrix.
+- AB is a matrix multiplication and it gives us a N by 1 matrix, a.k.a vector, where entry **i** stores the total amount of time customer **i** needs to checkout at a cashier.
 
 This is what we have achieved with our matrix implementation which allows us to efficiently compute the time each customer requires during checkout at the cashier. More details can be found in "testcase_generator.cpp" as well as "simulator.cpp".
 
@@ -68,19 +68,19 @@ This is what we have achieved with our matrix implementation which allows us to 
 ### Find the optimal solution:
 As the results of the simulation are stored in an array, we will iterate through the array to find the optimal solution. Given our problem, there are two possible methods of coming up with an optimal solution (optimal number of cashiers). We label them METHOD 1 and METHOD 2 respectively. METHOD 1 is used when the user can provide the program with the average spending of each customer and the cost of each cashier. Otherwise, METHOD 2 is used.
 
-METHOD 1:
+**METHOD 1:**
 - We have enough data to find an optimal solution that is tailored towards the user.
-- We first iterate through 1 to N number of cashiers (where N is user-defined) and compare the "number of served customers". If "average customer spending" * "number of served customers" < "cost of each cashier" * "number of cashiers", then this "number of cashiers" and any larger number of cashiers is "not optimal". So, once we encountered this condition, we should stop the program and return the optimal solution. This is because of two reasons:
+- We first iterate through 1 to N number of cashiers (where N is user-defined) and compare the **number of served customers**. If **average customer spending** * **number of served customers** < **cost of each cashier** * **number of cashiers**, then this **number of cashiers** and any larger number of cashiers is "not optimal". So, once we encountered this condition, we should stop the program and return the optimal solution. This is because of two reasons:
 
-1. If the cost of cashiers is greater than total generated revenue ("average customer spending" * "number of served customers"), then there is no point in adding more cashiers.
+1. If the cost of cashiers is greater than total generated revenue (**average customer spending** * **number of served customers**), then there is no point in adding more cashiers.
 
 2. One can argue that instead of stopping the program, it should continue to search because there might be an even better solution if we let the program to continue searching. For example, in the sequence 1 -> 2 -> 5 -> 3 -> 2 -> 10, "5" might seem like an optimal solution but "10" is the true optimal solution. Thankfully, this argument is invalid as the condition we imposed is sufficient to find the optimal solution. Put simply, the total number of customers serve actually converges, so the previous terms in the sequence will always be smaller than future terms. For example, one sequence that fits the description would be 1 -> 2 -> 3 -> 4 -> 5 -> 10.
 
 Generally, METHOD 1 is preferable to METHOD 2 as the program has extra data to make the calculations.
 
-METHOD 2:
+**METHOD 2:**
 - We do not have enough data to find an optimal solution that is tailored towards the user. So, we must base our decision on statistics alone.
-- We first iterate through 1 to N number of cashiers (where N is user-defined) and compare the "number of served customers". If "number of customers served with (n) cashiers" - "number of customers served with (n - 1) cashiers" < "minimum number of customers served" * 0.5, then "n" cashiers and any larger number of cashiers is "not optimal". The reasonings for this is similar to METHOD 1, but instead of comparing price of cashiers and customers spending, we compare the "increments" adding new cashiers give. For example,
+- We first iterate through 1 to N number of cashiers (where N is user-defined) and compare the **number of served customers**. If **number of customers served with (n) cashiers** - **number of customers served with (n - 1) cashiers** < **minimum number of customers served** * 0.5, then "n" cashiers and any larger number of cashiers is "not optimal". The reasonings for this is similar to METHOD 1, but instead of comparing price of cashiers and customers spending, we compare the "increments" adding new cashiers give. For example,
 
    1 cashier = 5 customers
    
