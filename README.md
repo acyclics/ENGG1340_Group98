@@ -42,7 +42,7 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 2. Open the executable `cashier` file.
 3. The program requires for 3 compulsory inputs and 2 optional inputs.
   | Input Information  | Size of the input |
-  | -------------------| ----------------- |
+  | --- | --- |
   | Number of customers| 0  - 2147483647   |
   | Number of cashiers | 0  - 2147483647   |
   | Do you know the average spending of each customer and cost of each cashier | YES / NO |
