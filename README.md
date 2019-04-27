@@ -140,3 +140,31 @@ Number of cashiers:      9         Number of served customers:      10
 Number of cashiers:      10        Number of served customers:      10        
 
 The recommended number of cashiers: 1
+
+4. **FORTH TESTCASE**
+
+Number of customers:     `10000`
+
+Number of cashiers:      `15`
+
+Do you know the average spending of each customer and cost of each cashier? (YES / NO): `NO`
+
+********************* The following is the results of each simulation *********************
+
+Number of cashiers:      1         Number of served customers:      333       
+Number of cashiers:      2         Number of served customers:      692       
+Number of cashiers:      3         Number of served customers:      1020      
+Number of cashiers:      4         Number of served customers:      1359      
+Number of cashiers:      5         Number of served customers:      1725      
+Number of cashiers:      6         Number of served customers:      2032      
+Number of cashiers:      7         Number of served customers:      2320      
+Number of cashiers:      8         Number of served customers:      2647      
+Number of cashiers:      9         Number of served customers:      3010      
+Number of cashiers:      10        Number of served customers:      3333      
+Number of cashiers:      11        Number of served customers:      3715      
+Number of cashiers:      12        Number of served customers:      4059      
+Number of cashiers:      13        Number of served customers:      4395      
+Number of cashiers:      14        Number of served customers:      4739      
+Number of cashiers:      15        Number of served customers:      5044      
+
+The recommended number of cashiers: 15
