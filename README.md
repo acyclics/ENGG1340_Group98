@@ -38,7 +38,7 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 2. Dynamic programming can be used to keep track of past test cases. After each simulation, we can keep the test case that maximizes the revenue of the grocery store. After all test cases are ran, the test case that remains theoretically contains the parameters that would maximize the revenue of the grocery store.
 
 ### How to use the simulator
-1. first `git clone` the repository and use `make cashier` to generate the executable cashier program
+1. First `git clone` the repository and use `make cashier` to generate the executable cashier program
 2. Open the executable `cashier` file.
 3. The program requires for 3 compulsory inputs and 2 optional inputs.
 
