@@ -30,7 +30,9 @@ Last but not least, our simulation will emulate a grocery store as closely as po
    ensure that each generated data for simulation are recorded.
    
 2. There are randomly generated data for each customer. So, each line in the "Simulation" file follows the following format:
+
    Customer #  :   A       B 
+   
    where # = no. of customer, A = randomly generated number 1, B = randomly generated number 2. Details for these randomly 
    generated number are within "main.cpp". Note that there are a total of N lines in the "Simulation" file because there are N 
    customers (where N is user-defined) and each customer has randomly generated data.
@@ -80,11 +82,15 @@ METHOD 2:
 - We do not have enough data to find an optimal solution that is tailored towards the user. So, we must base our decision on statistics alone.
 - We first iterate through 1 to N number of cashiers (where N is user-defined) and compare the "number of served customers". If "number of customers served with (n) cashiers" - "number of customers served with (n - 1) cashiers" < "minimum number of customers served" * 0.5, then "n" cashiers and any larger number of cashiers is "not optimal". The reasonings for this is similar to METHOD 1, but instead of comparing price of cashiers and customers spending, we compare the "increments" adding new cashiers give. For example,
 
-1 cashier = 5 customers
-2 cashiers = 10 customers
-3 cashiers = 14 customers
-4 cashiers = 15 customers
-5 cashiers = 15 customers
+   1 cashier = 5 customers
+   
+   2 cashiers = 10 customers
+   
+   3 cashiers = 14 customers
+   
+   4 cashiers = 15 customers
+   
+   5 cashiers = 15 customers
 
 At first, 1 cashier gives us 5 customers that successfully checked-out. 2 cashiers give us 10, that is a +5 customers due to +1 cashier. 3 cashiers give us +4 customers due to +1 cashier (from 2 cashiers to 3 cashiers). 4 cashiers give us +1 customers due to +1 cashier (from 3 cashiers to 4 cashiers). 5 cashiers give us +0 customers due to +1 cashier. Using METHOD 2, our program will find the point where the increase in customers are insignificant (such as +0 customer) and that point will be the optimal solution (in this case, it will be 4 cashiers).
 
@@ -114,7 +120,7 @@ We have also provided extra functionality in the Makefile to benefit the user. A
 
 ### Sample simulations
 
-**FIRST SIMULATION**
+**----------FIRST SIMULATION----------**
 
 Number of customers:     `100`
 
@@ -132,7 +138,7 @@ Number of cashiers:      5         Number of served customers:      99
 
 The recommended number of cashiers: 1
 
-**SECOND SIMULATION**
+**----------SECOND SIMULATION----------**
 
 Number of customers:     `1000`
 
@@ -174,7 +180,7 @@ Number of cashiers:      25        Number of served customers:      988
 
 The recommended number of cashiers: 4
 
-**THIRD SIMULATION**
+**----------THIRD SIMULATION----------**
 
 Number of customers:     `10`
 
@@ -201,7 +207,7 @@ Number of cashiers:      10        Number of served customers:      10
 
 The recommended number of cashiers: 1
 
-**FORTH SIMULATION**
+**----------FORTH SIMULATION----------**
 
 Number of customers:     `10000`
 
