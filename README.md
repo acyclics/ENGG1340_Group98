@@ -54,7 +54,9 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 ### Sample testcase
 1.
 Number of customers:     `100`
+
 Number of cashiers:      `5`
+
 Do you know the average spending of each customer and cost of each cashier? (YES / NO):            ` NO`
 
 ********************* The following is the results of each simulation *********************
