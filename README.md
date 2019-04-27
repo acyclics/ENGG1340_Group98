@@ -52,7 +52,7 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 - Consider customer **i**. Customer **i** has **x** groceries and payment method **y**. For each grocery, time needed to pay for it is 5 seconds. Also, let the time needed to use payment method **y** be 10 times **y**. Then, the total amount of time a customer needs to checkout = 5**x** + 10**y**.
 - The problem is that we have N number of customers, what is an efficient way to do all these computations? The answer is of course, with matrices.
 - Let A = "customers", where each row is a customer and each column be **x** and **y**. So, A is a N by 2 matrix. Also, let B = "time constants" where "5 seconds" is row 1 and "10 seconds" is row 2. So, B is a 2 by 1 matrix. Note that these numbers come from the above example.
-- AB is a matrix multiplication and it gives us a N by 1 matrix, a.k.a vector, where entry **i** stores the total amount of time customer **i** needs to checkout at a cashier.
+- AB is a matrix multiplication and it gives us a N by 1 matrix, a.k.a vector, where entry **i** stores the total amount of time customer **i** needs to checkout at a cashier. For example, in the above case, there is only one entry in AB which is given by 5**x** + 10**y**.
 
 This is what we have achieved with our matrix implementation which allows us to efficiently compute the time each customer requires during checkout at the cashier. More details can be found in "testcase_generator.cpp" as well as "simulator.cpp".
 
