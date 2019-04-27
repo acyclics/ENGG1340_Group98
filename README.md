@@ -78,38 +78,64 @@ Number of customers:     `1000`
 
 Number of cashiers:      `25`
 
-Do you know the average spending of each customer and cost of each cashier? (YES / NO):             `YES`
+Do you know the average spending of each customer and cost of each cashier? (YES / NO): `YES`
 
-Average spending of customers: `200`
+Average spending of customers:     `200`
 
-Cost of each cashier:    `500`
+Cost of each cashier:              `500`
 
 ********************* The following is the results of each simulation *********************
 
-Number of cashiers:      1         Number of served customers:      336       
-Number of cashiers:      2         Number of served customers:      663       
-Number of cashiers:      3         Number of served customers:      958       
-Number of cashiers:      4         Number of served customers:      990       
-Number of cashiers:      5         Number of served customers:      991       
-Number of cashiers:      6         Number of served customers:      991       
-Number of cashiers:      7         Number of served customers:      991       
-Number of cashiers:      8         Number of served customers:      991       
-Number of cashiers:      9         Number of served customers:      991       
-Number of cashiers:      10        Number of served customers:      991       
-Number of cashiers:      11        Number of served customers:      991       
-Number of cashiers:      12        Number of served customers:      991       
-Number of cashiers:      13        Number of served customers:      991       
-Number of cashiers:      14        Number of served customers:      991       
-Number of cashiers:      15        Number of served customers:      991       
-Number of cashiers:      16        Number of served customers:      991       
-Number of cashiers:      17        Number of served customers:      991       
-Number of cashiers:      18        Number of served customers:      991       
-Number of cashiers:      19        Number of served customers:      991       
-Number of cashiers:      20        Number of served customers:      991       
-Number of cashiers:      21        Number of served customers:      991       
-Number of cashiers:      22        Number of served customers:      991       
-Number of cashiers:      23        Number of served customers:      991       
-Number of cashiers:      24        Number of served customers:      991       
-Number of cashiers:      25        Number of served customers:      991       
+Number of cashiers:      1         Number of served customers:      321       
+Number of cashiers:      2         Number of served customers:      678       
+Number of cashiers:      3         Number of served customers:      952       
+Number of cashiers:      4         Number of served customers:      988       
+Number of cashiers:      5         Number of served customers:      988       
+Number of cashiers:      6         Number of served customers:      988       
+Number of cashiers:      7         Number of served customers:      988       
+Number of cashiers:      8         Number of served customers:      988       
+Number of cashiers:      9         Number of served customers:      988       
+Number of cashiers:      10        Number of served customers:      988       
+Number of cashiers:      11        Number of served customers:      988       
+Number of cashiers:      12        Number of served customers:      988       
+Number of cashiers:      13        Number of served customers:      988       
+Number of cashiers:      14        Number of served customers:      988       
+Number of cashiers:      15        Number of served customers:      988       
+Number of cashiers:      16        Number of served customers:      988       
+Number of cashiers:      17        Number of served customers:      988       
+Number of cashiers:      18        Number of served customers:      988       
+Number of cashiers:      19        Number of served customers:      988       
+Number of cashiers:      20        Number of served customers:      988       
+Number of cashiers:      21        Number of served customers:      988       
+Number of cashiers:      22        Number of served customers:      988       
+Number of cashiers:      23        Number of served customers:      988       
+Number of cashiers:      24        Number of served customers:      988       
+Number of cashiers:      25        Number of served customers:      988       
 
-The recommended number of cashiers: 25
+The recommended number of cashiers: 4
+
+3.**THIRD TESTCASE**
+Number of customers:     `10`
+
+Number of cashiers:      `10`
+
+Do you know the average spending of each customer and cost of each cashier? (YES / NO): `YES`
+
+Average spending of customers:     `1000`
+
+Cost of each cashier:              `10`
+
+********************* The following is the results of each simulation *********************
+
+Number of cashiers:      1         Number of served customers:      10        
+Number of cashiers:      2         Number of served customers:      10        
+Number of cashiers:      3         Number of served customers:      10        
+Number of cashiers:      4         Number of served customers:      10        
+Number of cashiers:      5         Number of served customers:      10        
+Number of cashiers:      6         Number of served customers:      10        
+Number of cashiers:      7         Number of served customers:      10        
+Number of cashiers:      8         Number of served customers:      10        
+Number of cashiers:      9         Number of served customers:      10        
+Number of cashiers:      10        Number of served customers:      10        
+
+The recommended number of cashiers: 1
