@@ -23,7 +23,9 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 
 ### Output "Simulation" files that holds critical information used to find the optimal solution
 1. We want the results to be reproducible. Because the data are randomly generated, a record for each generation. Therefore, the randomly generated numbers used for the simulation will be outputted to a file. This filename has the format 
+
    "Simulation-Y-m-d-H-M-S"
+   
    where Y = Year, m = Month, d = Day, H = Hour, M = Minute, S = Second. By using generation time as part of filename, we
    ensure that each generated data for simulation are recorded.
    
