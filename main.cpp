@@ -116,7 +116,7 @@ int main() {
                         then this "number of cashiers" and any larger number of cashiers is "not optimal".
             Method 2:
                       - We do not have enough data to find an optimal solution that is tailored towards the user. So, we must base our decision on statistics alone.
-                      - If "number of customers served with (n) cashiers" - "number of customers served with (n - 1) cashiers" < "minimum number of customers served" * 0.9
+                      - If "number of customers served with (n) cashiers" - "number of customers served with (n - 1) cashiers" < "minimum number of customers served" * 0.5
                         then "n" cashiers and any larger number of cashiers is "not optimal".
   */
 
