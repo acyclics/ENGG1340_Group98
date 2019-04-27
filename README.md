@@ -16,30 +16,33 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 
 ### Generate N number of customers to find the optimal solution. N is user-defined
 1. We will program a "test-case generator" to generate test cases and simulate them in another program to find the optimal solution
+
 2. Ideally, we use "mt19937" to generate random numbers for our simulation (the range of random numbers from rand() is dependent on the host's machine and realistically, if this project is to be implemented in real-life it should give the same result on any machines, regardless of the host.
+
 3. More details can be found in "main.cpp"
 
 ### Output "Simulation" files that holds critical information used to find the optimal solution
-1. We want the results to be reproducible. Because the data are randomly generated, a record for each generation. Therefore, the randomly generated numbers used for the simulation will be outputted to a file. This filename has the format
-
-"Simulation-Y-m-d-H-M-S"
-where Y = Year, m = Month, d = Day, H = Hour, M = Minute, S = Second. 
-
-By using generation time as part of filename, we ensure that each generated data for simulation are recorded.
-
+1. We want the results to be reproducible. Because the data are randomly generated, a record for each generation. Therefore, the randomly generated numbers used for the simulation will be outputted to a file. This filename has the format 
+   "Simulation-Y-m-d-H-M-S"
+   where Y = Year, m = Month, d = Day, H = Hour, M = Minute, S = Second. By using generation time as part of filename, we
+   ensure that each generated data for simulation are recorded.
+   
 2. There are randomly generated data for each customer. So, each line in the "Simulation" file follows the following format:
-
-Customer #  :   A       B
-
-where # = no. of customer, A = randomly generated number 1, B = randomly generated number 2. Details for these randomly generated number are within "main.cpp". Note that there are a total of N lines in the "Simulation" file because there are N customers (where N is user-defined) and each customer has randomly generated data.
+   Customer #  :   A       B 
+   where # = no. of customer, A = randomly generated number 1, B = randomly generated number 2. Details for these randomly 
+   generated number are within "main.cpp". Note that there are a total of N lines in the "Simulation" file because there are N 
+   customers (where N is user-defined) and each customer has randomly generated data.
 
 ### Function that serves to calculate the processing time each customer would spent at the cashier
 1. Function should take into account the amount of items and payment method. The combination of the two will be used to calculate the total amount of time a customer needs to spend at the cashier.
+
 2. Real life has a lot of uncertainties; a customer might take more time than others for a variety of reason. Hence, we decided to include a factor that randomly increases time. This random factor would follow the normal distribution as real life events tend to follow the normal distribution as well.
+
 3. As there will be a lot of test cases and a lot of factors that would affect the time each customers take, using matrices to represent both the data and calculation would allow for clean implementation. Hence, we implemented a matrix data structure as well.
 
 ### Matrix implementation
 1. The class "matrix" is used both for storing data of customers as well as to calculate time each customers need.
+
 2. Matrix multiplication achieves this:
 
 - Consider customer i. Customer i has "x" groceries and payment method "y". For each grocery, time needed to pay for it is 5 seconds. Also, let the time needed to use payment method "y" be 10 times "y". Then, the total amount of time a customer needs to checkout = 5x + 10y.
@@ -51,8 +54,11 @@ This is what we have achieved with our matrix implementation which allows us to 
 
 ### Function to sort customers into cashiers
 1. We begin by sorting customers one-by-one to evenly distribute them into each queue. This is realistic as customers would most likely queue at the current shortest queue, hence customers would evenly distribute themselves into each queue.
+
 2. "class" is used to implement the queue for each cashier as each cashier has its own queue. "class" allows each cashier to handle their own queue and improve modularity.
+
 3. The data structure "queue" is used to distribute customers. The first-in-first-out (F.I.F.O) nature of the data structure "queue" proves to be well-suited for this task.
+
 4. Each item of the queue is the struct "Customer". This allows us to keep everything well-contained.
 
 ### Find the optimal solution:
@@ -63,6 +69,7 @@ METHOD 1:
 - We first iterate through 1 to N number of cashiers (where N is user-defined) and compare the "number of served customers". If "average customer spending" * "number of served customers" < "cost of each cashier" * "number of cashiers", then this "number of cashiers" and any larger number of cashiers is "not optimal". So, once we encountered this condition, we should stop the program and return the optimal solution. This is because of two reasons:
 
 1. If the cost of cashiers is greater than total generated revenue ("average customer spending" * "number of served customers"), then there is no point in adding more cashiers.
+
 2. One can argue that instead of stopping the program, it should continue to search because there might be an even better solution if we let the program to continue searching. For example, in the sequence 1 -> 2 -> 5 -> 3 -> 2 -> 10, "5" might seem like an optimal solution but "10" is the true optimal solution. Thankfully, this argument is invalid as the condition we imposed is sufficient to find the optimal solution. Put simply, the total number of customers serve actually converges, so the previous terms in the sequence will always be smaller than future terms. For example, one sequence that fits the description would be 1 -> 2 -> 3 -> 4 -> 5 -> 10.
 
 Generally, METHOD 1 is preferable to METHOD 2 as the program has extra data to make the calculations.
@@ -83,6 +90,8 @@ Defining "significance" is tricky. One can argue that the +1 customers from 3 ca
 
 Note that in the above case, +1 is treated as significant because minimum number of customers served is only 5 customers. So, the optimal solution METHOD 2 will find for this is 4 cashiers. METHOD 2 will not consider 5 cashiers as +0 is insignificant. Also, it would not consider 5 cashiers because there is no change from 4 cashiers to 5 cashiers (and paying for extra cashiers without an increase in customers is definitely a loss in profit).
 
+More details can be found in the file "main.cpp".
+
 ### How to use the simulator
 1. First `git clone` the repository and use `make cashier` to generate the executable cashier program
 2. Execute the program "cashier" with command `./cashier`.
@@ -102,7 +111,8 @@ Note that in the above case, +1 is treated as significant because minimum number
 We have also provided extra functionality in the Makefile to benefit the user. As each run of the program (simulation) will generate a file that contains data relevant to that simulation, users, if they so choose, can remove all generated files with the command `make rmsimu`. Also, `make rmprog` can be used to remove the generated executable file "cashier" when `make cashier` was called.
 
 ### Sample simulations
-1. **FIRST SIMULATION**
+
+**FIRST SIMULATION**
 
 Number of customers:     `100`
 
@@ -120,7 +130,7 @@ Number of cashiers:      5         Number of served customers:      99
 
 The recommended number of cashiers: 1
 
-2. **SECOND SIMULATION**
+**SECOND SIMULATION**
 
 Number of customers:     `1000`
 
@@ -162,7 +172,7 @@ Number of cashiers:      25        Number of served customers:      988
 
 The recommended number of cashiers: 4
 
-3.**THIRD SIMULATION**
+**THIRD SIMULATION**
 
 Number of customers:     `10`
 
@@ -189,7 +199,7 @@ Number of cashiers:      10        Number of served customers:      10
 
 The recommended number of cashiers: 1
 
-4. **FORTH SIMULATION**
+**FORTH SIMULATION**
 
 Number of customers:     `10000`
 
@@ -216,3 +226,6 @@ Number of cashiers:      14        Number of served customers:      4739
 Number of cashiers:      15        Number of served customers:      5044      
 
 The recommended number of cashiers: 15
+
+### Ending notes
+Our simulation program follows very strict programming structures and a very mathematical approach to problem solving. We believe that to best simulate real-life events, probability and statistics are crucial, hence everything we implemented are rooted in probabilities and statistics. Some linear algebra is also employed to handle the sheer amount of data the user can request the program to generate.
