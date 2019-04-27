@@ -115,6 +115,7 @@ Number of cashiers:      25        Number of served customers:      988
 The recommended number of cashiers: 4
 
 3.**THIRD TESTCASE**
+
 Number of customers:     `10`
 
 Number of cashiers:      `10`
