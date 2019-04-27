@@ -36,3 +36,33 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 ### Find optimal solution with optimization algorithm(s)
 1. Nelder-mead is an optimization algorithm that takes parameters as inputs, calculate the output using those parameters (in this case the total time spent for each customer / total revenue of grocery store), and adjust the parameters to find the maximum output. Implementing this optimization algorithm with the simulator would provide us the solution to the problem statement.
 2. Dynamic programming can be used to keep track of past test cases. After each simulation, we can keep the test case that maximizes the revenue of the grocery store. After all test cases are ran, the test case that remains theoretically contains the parameters that would maximize the revenue of the grocery store.
+
+### How to use the simulator
+1. first `git clone` the repository and use `make cashier` to generate the executable cashier program
+2. Open the executable `cashier` file.
+3. The program requires for 3 compulsory inputs and 2 optional inputs.
+  | Input Information  | Size of the input |
+  | -------------------| ----------------- |
+  | Number of customers| 0  - 2147483647   |
+  | Number of cashiers | 0  - 2147483647   |
+  | Do you know the average spending of each customer and cost of each cashier | YES / NO |
+  | Average spending of customers | 0  - 2147483647 |
+  | Cost of each cashier | 0  - 2147483647 |
+4. The program outputs all the number of served customers with respect to different number of cashiers
+5. The program outputs the best number of cashier according to the user's inputs
+
+### Sample testcase
+1.
+Number of customers:     `100`
+Number of cashiers:      `5`
+Do you know the average spending of each customer and cost of each cashier? (YES / NO):            ` NO`
+
+********************* The following is the results of each simulation *********************
+
+Number of cashiers:      1         Number of served customers:      99        
+Number of cashiers:      2         Number of served customers:      99        
+Number of cashiers:      3         Number of served customers:      99        
+Number of cashiers:      4         Number of served customers:      99        
+Number of cashiers:      5         Number of served customers:      99        
+
+The recommended number of cashiers: 1

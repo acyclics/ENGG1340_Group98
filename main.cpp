@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <algorithm>
 #include "main.h"
 #include "testcase_generator.h"
 #include "simulator.h"
@@ -29,7 +30,7 @@ int main() {
             f. If the user has extra details, Step 3 will calculate optimal solution with METHOD 1. Else, Step 3 will calculate optimal solution with METHOD 2.
   */
 
-  int numberOfCustomers = 0, maxNumberOfCashiers = 0;                                                        
+  int numberOfCustomers = 0, maxNumberOfCashiers = 0;
   cout << left << setw(25) << "Number of customers: ";
   cin >> numberOfCustomers;
   cout << setw(25) << "Number of cashiers: ";
@@ -57,21 +58,21 @@ int main() {
   gen.generate();
 
   string user_input;
-  cout << setw(100) << "Do you know the average spending of each customer and cost of each cashier? (YES / NO):";
+  cout << "Do you know the average spending of each customer and cost of each cashier? (YES / NO): ";
   cin >> user_input;
   int customer_average_spending = 0, cost_of_cashier = 0;
   if (user_input == "YES") {
     // Ask for extra data
-    cout << left << setw(25) << "Average spending of customers: ";
+    cout << left << setw(35) << "Average spending of customers: ";
     cin >> customer_average_spending;
-    cout << setw(25) << "Cost of each cashier: ";
+    cout << setw(35) << "Cost of each cashier: ";
     cin >> cost_of_cashier;
   }
   cout << "\n";
 
   /*
     Step 2:
-            Goal: Simulate! Simulation is done by the function "simulate". Details of implementation can be found in the file simulator.cpp. 
+            Goal: Simulate! Simulation is done by the function "simulate". Details of implementation can be found in the file simulator.cpp.
                   Below is a brief overview of the simulation process. Note that we are also gathering info during simulation for finding the optimal solution.
             a. Setup cashiers and start simulation.
             b. Customers will be uniformly distributed to the cashiers throughout the day.
@@ -111,7 +112,7 @@ int main() {
 
             Method 1:
                       - We have enough data to find an optimal solution that is tailored towards the user.
-                      - If "average customer spending" * "number of served customers" < "cost of each cashier" * "number of cashiers", 
+                      - If "average customer spending" * "number of served customers" < "cost of each cashier" * "number of cashiers",
                         then this "number of cashiers" and any larger number of cashiers is "not optimal".
             Method 2:
                       - We do not have enough data to find an optimal solution that is tailored towards the user. So, we must base our decision on statistics alone.
@@ -120,24 +121,27 @@ int main() {
   */
 
   int bottle_neck = 1;
+  int maximum = 0;
 
   for (int numberOfCashiers = 1; numberOfCashiers <= maxNumberOfCashiers; ++numberOfCashiers) {
     if (user_input == "YES") {  // METHOD 1
-      if (customer_average_spending * increment[numberOfCashiers] < cost_of_cashier * numberOfCashiers) {
+      if ( (customer_average_spending * increment[numberOfCashiers] < cost_of_cashier * numberOfCashiers)
+          || increment[numberOfCashiers] <= maximum) {
         break;
       }
     }
     else {                      // METHOD 2
-      if (abs(increment[numberOfCashiers] - increment[numberOfCashiers - 1]) < minimum_customers_served * 0.9) {
+      if (abs(increment[numberOfCashiers] - increment[numberOfCashiers - 1]) < minimum_customers_served * 0.5) {
         break;
       }
     }
     bottle_neck = numberOfCashiers;
+    maximum = max(maximum, increment[numberOfCashiers]);
   }
 
   cout << "The recommended number of cashiers: " << bottle_neck << "\n";  // This is the optimal solution
 
   delete[] increment;
-  
+
   return 0;
 }
