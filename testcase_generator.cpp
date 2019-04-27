@@ -5,6 +5,10 @@
 */
 #include "testcase_generator.h"
 #include <iostream>
+#include <fstream>
+#include <ctime>
+#include <iomanip>
+
 namespace numGenerator {
     using namespace std;
     /*
@@ -32,6 +36,7 @@ namespace numGenerator {
                   2. Overloaded with types int, double, to be used for different variables.
                   3. mt19937 is a Mersenne Twister is fast and can randomly generate numbers
                      that range from 0 to 4294967295 (more than enough for our simulator).
+        Return: Random int / double
     */
     int RNG(int lowerbound, int upperbound) {
         uniform_int_distribution<int> normalize(lowerbound, upperbound);    // uniform distribution (int)
@@ -49,6 +54,7 @@ namespace numGenerator {
                   2. Overloaded with types int, double, to be used for different variables.
                   3. mt19937 is a Mersenne Twister is fast and can randomly generate numbers
                      that range from 0 to 4294967295 (more than enough for our simulator).
+        Return: Normally distributed int / double
     */
     int NDG(int mean, int standard_deviation) {
         normal_distribution<double> distribution(mean, standard_deviation);    // int distribution
@@ -72,7 +78,7 @@ namespace testcase {
                   4. Three constructors, can initialize random variable with either int and/or double
     */
     randomVariable::randomVariable() {
-        // empty constructor
+        // Empty constructor
     }
     randomVariable::randomVariable(int lowerbound, int upperbound) {
         rInt = RNG(lowerbound, upperbound);
@@ -80,15 +86,30 @@ namespace testcase {
     randomVariable::randomVariable(double lowerbound, double upperbound) {
         rDouble = RNG(lowerbound, upperbound);
     }
+    /*
+        Function: randomInt, randomDouble
+        Description: Generate a random integer or random double for the randomVariable.
+        Return: void
+    */
     void randomVariable::randomInt(int lowerbound, int upperbound) {
         rInt = RNG(lowerbound, upperbound);
     }
     void randomVariable::randomDouble(double lowerbound, double upperbound) {
         rDouble = RNG(lowerbound, upperbound);
     }
+    /*
+        Function: setLabel
+        Description: Assign a name to the randomVariable.
+        Return: void
+    */
     void randomVariable::setLabel(string name) {
         label = name;
     }
+    /*
+        Function: read_Int, read_Double, read_Label
+        Description: Returns a random int, random double, or the randomVariable label. 
+        Return: int, double, string
+    */
     int randomVariable::read_Int() {
         return rInt;
     }
@@ -105,10 +126,10 @@ namespace testcase {
         Features: 1. By default, constructor and "resize" function initializes all values to zero
                   2. Access value of matrix at position i, j with function valueAt
                   3. Supports operations we need such as +, -, *, /
-                  4. equality operator to compare two matrices
+                  4. Equality operator to compare two matrices
     */
     matrix::matrix() {
-        // empty constructor
+        // Empty constructor
     }
     matrix::matrix(int n, int m) {
         dim = make_pair(n, m);
@@ -171,7 +192,7 @@ namespace testcase {
         result.resize(dim.first, operand.dimension().second);
         for (int i(0); i < dim.first; ++i) {
             for (int j(0); j < operand.dimension().second; ++j) {
-                double dotProduct(0);   // first compute dot product
+                double dotProduct(0);   // First compute dot product
                 for (int c(0); c < operand.dimension().first; ++c) {
                     dotProduct += valueAt(i, c) * operand.valueAt(c, j);
                 }
@@ -203,10 +224,10 @@ namespace testcase {
 
     /*
         Class: test case generator
-        Description: returns a matrix containing all testcases, as well as generate a file containing all cases
-        Features: 1. default test-case constraints range from 0-100 of type int
-                  2. generates a number of testcases (user defined) and store it into a matrix
-                  3. print the matrix out
+        Description: Returns a matrix containing all testcases, as well as generate a file containing all cases
+        Features: 1. Default test-case constraints range from 0-100 of type int
+                  2. Generates a number of testcases (user defined) and store it into a matrix
+                  3. Store "time constants" which are used to calculate amount of time a customer spends at the cashier
     */
     tcGenerator::tcGenerator(int noOfTestcases, int noOfVariables) {
         numberOfTestcases = noOfTestcases;
@@ -215,12 +236,34 @@ namespace testcase {
         constraints.resize(numberOfVariables, make_pair(make_pair(0, 100), "int"));
         timeConstants.resize(numberOfVariables, 1);
     }
+    /*
+        Function: editConstraints
+        Description: Set the lowerbound and upperbound of random numbers to be generated.
+                     These randomly generated numbers are to simulation different aspects of customers at a grocery store.
+        Return: void
+    */
     void tcGenerator::editConstraints(int no, double lowerbound, double upperbound, string type) {
         constraints[no] = make_pair(make_pair(lowerbound, upperbound), type);   // 0-based index
     }
+    /*
+        Function: generate
+        Description: Using the random number constraints set by editConstraints, generate random numbers 
+                     for a pre-determined number of customers (which is equivalent to number of testcases).
+        Return: void
+    */
     void tcGenerator::generate() {
         randomVariable rInt, rDouble;
+        ofstream testcases_file;
+        char timeBuffer[100];
+        time_t t = time(0);
+        struct tm * now = localtime(&t);                     // acquire current time
+        strftime (timeBuffer,100,"%Y-%m-%d-%H-%M-%S",now);   // create string from current time
+        string timeBuff = timeBuffer;
+        string filename = "Simulation-" + timeBuff;
+        testcases_file.open(filename);                     // create unique file for storing this specific testcase
+        testcases_file << left;
         for (int row(0); row < numberOfTestcases; ++row) {
+            testcases_file << setw(10) << "Customer " << setw(8) << row + 1 << ": ";
             for (int col(0); col < numberOfVariables; ++col) {
                 double randomValue = 0;
                 if (constraints[col].second == "int") {
@@ -232,33 +275,41 @@ namespace testcase {
                     randomValue = rDouble.read_Double();
                 }
                 testcases.valueAt(row, col) = randomValue;
+                testcases_file << setw(10) << randomValue;  // store the random variables of each customer into file
             }
+            testcases_file << "\n";
         }
+        testcases_file.close();
     }
+    /*
+        Function: editTimeConstants
+        Description: Edits a matrix that contains time constants. 
+                     Time constants are used to determine the amount of time a customer needs to spend at a cashier.
+        Return: void
+    */
     void tcGenerator::editTimeConstants(int no, int timeConstant) {
         timeConstants.valueAt(no, 0) = timeConstant;
     }
     void tcGenerator::editTimeConstants(int no, double timeConstant) {
         timeConstants.valueAt(no, 0) = timeConstant;
     }
+    /*
+        Function: returnTestcases, returnTimeConstants
+        Description: Return each matrix respectively.
+        Return: matrix
+    */
     matrix tcGenerator::returnTestcases() {
         return testcases;
     }
     matrix tcGenerator::returnTimeConstants() {
         return timeConstants;
     }
+    /*
+        Function: getMatrixValue
+        Description: Return, in terms of integer, the number stored at position (i, j) of a matrix.
+        Return: int
+    */
     int tcGenerator::getMatrixValue(int i, int j) {
         return testcases.valueAt(i, j);
     }
-
-    #ifdef DEBUG
-    void tcGenerator::printMatrix() {
-        for (int row(0); row < numberOfTestcases; ++row) {
-            for (int col(0); col < numberOfVariables; ++col) {
-              cout << testcases.valueAt(row, col) << " ";
-            }
-            cout << "\n";
-        }
-    }
-    #endif
 }

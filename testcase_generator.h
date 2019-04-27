@@ -1,3 +1,7 @@
+/*
+    File: testcase_generator.h
+    Note: For details, please see testcase_generator.cpp. That file is where most of our commenting are done.
+*/
 #ifndef testcase_generator_h
 #define testcase_generator_h
 
@@ -57,7 +61,6 @@ namespace testcase {
 
     /*
         Class: test case generator
-        Description: returns a matrix containing all testcases, as well as generate a file containing all cases
     */
    class tcGenerator {
        matrix testcases, timeConstants;
@@ -72,7 +75,6 @@ namespace testcase {
        void generate();
        matrix returnTestcases();
        matrix returnTimeConstants();
-       void printMatrix();
        int getMatrixValue(int row, int col);
    };
 }
