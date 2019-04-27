@@ -54,7 +54,8 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 5. The program outputs the best number of cashier according to the user's inputs
 
 ### Sample testcase
-1.
+1.FIRST TESTCASE
+
 Number of customers:     `100`
 
 Number of cashiers:      `5`
