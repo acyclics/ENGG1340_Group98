@@ -20,9 +20,10 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 3. More details can be found in "main.cpp"
 
 ### Output "Simulation" files that holds critical information used to find the optimal solution
-1. We want the results to be reproducible. Because the data are randomly generated, a record for each generation. Therefore, the randomly generated numbers used for the simulation will be outputted to a file. This file has the format
+1. We want the results to be reproducible. Because the data are randomly generated, a record for each generation. Therefore, the randomly generated numbers used for the simulation will be outputted to a file. This filename has the format
 
-"Simulation-Y-m-d-H-M-S", where Y = Year, m = Month, d = Day, H = Hour, M = Minute, S = Second. 
+"Simulation-Y-m-d-H-M-S"
+where Y = Year, m = Month, d = Day, H = Hour, M = Minute, S = Second. 
 
 By using generation time as part of filename, we ensure that each generated data for simulation are recorded.
 
@@ -30,7 +31,7 @@ By using generation time as part of filename, we ensure that each generated data
 
 Customer #  :   A       B
 
-Where # = no. of customer, A = randomly generated number 1, B = randomly generated number 2. Details for these randomly generated number are within "main.cpp". Note that there are a total of N lines in the "Simulation" file because there are N customers (where N is user-defined) and each customer has randomly generated data.
+where # = no. of customer, A = randomly generated number 1, B = randomly generated number 2. Details for these randomly generated number are within "main.cpp". Note that there are a total of N lines in the "Simulation" file because there are N customers (where N is user-defined) and each customer has randomly generated data.
 
 ### Function that serves to calculate the processing time each customer would spent at the cashier
 1. Function should take into account the amount of items and payment method. The combination of the two will be used to calculate the total amount of time a customer needs to spend at the cashier.
@@ -54,16 +55,33 @@ This is what we have achieved with our matrix implementation which allows us to 
 3. The data structure "queue" is used to distribute customers. The first-in-first-out (F.I.F.O) nature of the data structure "queue" proves to be well-suited for this task.
 4. Each item of the queue is the struct "Customer". This allows us to keep everything well-contained.
 
-### Find optimal solution with min / max solutions:
-Given our problem, there are two possible methods of coming up with an optimal solution (optimal number of cashiers). We label them METHOD 1 and METHOD 2 respectively. METHOD 1 is used when the user can provide the program with the average spending of each customer and the cost of each cashier. Otherwise, METHOD 2 is used.
+### Find the optimal solution:
+As the results of the simulation are stored in an array, we will iterate through the array to find the optimal solution. Given our problem, there are two possible methods of coming up with an optimal solution (optimal number of cashiers). We label them METHOD 1 and METHOD 2 respectively. METHOD 1 is used when the user can provide the program with the average spending of each customer and the cost of each cashier. Otherwise, METHOD 2 is used.
 
 METHOD 1:
 - We have enough data to find an optimal solution that is tailored towards the user.
-- If "average customer spending" * "number of served customers" < "cost of each cashier" * "number of cashiers", then this "number of cashiers" and any larger number of cashiers is "not optimal".
+- We first iterate through 1 to N number of cashiers (where N is user-defined) and compare the "number of served customers". If "average customer spending" * "number of served customers" < "cost of each cashier" * "number of cashiers", then this "number of cashiers" and any larger number of cashiers is "not optimal". So, once we encountered this condition, we should stop the program and return the optimal solution. This is because of two reasons:
+
+1. If the cost of cashiers is greater than total generated revenue ("average customer spending" * "number of served customers"), then there is no point in adding more cashiers.
+2. One can argue that instead of stopping the program, it should continue to search because there might be an even better solution if we let the program to continue searching. For example, in the sequence 1 -> 2 -> 5 -> 3 -> 2 -> 10, "5" might seem like an optimal solution but "10" is the true optimal solution. Thankfully, this argument is invalid as the condition we imposed is sufficient to find the optimal solution. Put simply, the total number of customers serve actually converges, so the previous terms in the sequence will always be smaller than future terms. For example, one sequence that fits the description would be 1 -> 2 -> 3 -> 4 -> 5 -> 10.
+
+Generally, METHOD 1 is preferable to METHOD 2 as the program has extra data to make the calculations.
 
 METHOD 2:
 - We do not have enough data to find an optimal solution that is tailored towards the user. So, we must base our decision on statistics alone.
-- If "number of customers served with (n) cashiers" - "number of customers served with (n - 1) cashiers" < "minimum number of customers served" * 0.5, then "n" cashiers and any larger number of cashiers is "not optimal".
+- We first iterate through 1 to N number of cashiers (where N is user-defined) and compare the "number of served customers". If "number of customers served with (n) cashiers" - "number of customers served with (n - 1) cashiers" < "minimum number of customers served" * 0.5, then "n" cashiers and any larger number of cashiers is "not optimal". The reasonings for this is similar to METHOD 1, but instead of comparing price of cashiers and customers spending, we compare the "increments" adding new cashiers give. For example,
+
+1 cashier = 5 customers
+2 cashiers = 10 customers
+3 cashiers = 14 customers
+4 cashiers = 15 customers
+5 cashiers = 15 customers
+
+At first, 1 cashier gives us 5 customers that successfully checked-out. 2 cashiers give us 10, that is a +5 customers due to +1 cashier. 3 cashiers give us +4 customers due to +1 cashier (from 2 cashiers to 3 cashiers). 4 cashiers give us +1 customers due to +1 cashier (from 3 cashiers to 4 cashiers). 5 cashiers give us +0 customers due to +1 cashier. Using METHOD 2, our program will find the point where the increase in customers are insignificant (such as +0 customer) and that point will be the optimal solution (in this case, it will be 4 cashiers).
+
+Defining "significance" is tricky. One can argue that the +1 customers from 3 cashiers to 4 cashiers is not worth the +1 cashier. So, our program solves this by comparing the incremental size with the minimum number of customers that checked-out. The reasoning is simple: if the total customers served (checked-out successfully) is 2 and the incremental size is +1, then obviously the +1 is significant! So, for METHOD 2, our program will define "significance" by comparing the incremental size to the minimum number of customers served and use this definition of "significance" to find the point where the increment size becomes insigificant (which is the optimal solution).
+
+Note that in the above case, +1 is treated as significant because minimum number of customers served is only 5 customers. So, the optimal solution METHOD 2 will find for this is 4 cashiers. METHOD 2 will not consider 5 cashiers as +0 is insignificant. Also, it would not consider 5 cashiers because there is no change from 4 cashiers to 5 cashiers (and paying for extra cashiers without an increase in customers is definitely a loss in profit).
 
 ### How to use the simulator
 1. First `git clone` the repository and use `make cashier` to generate the executable cashier program
