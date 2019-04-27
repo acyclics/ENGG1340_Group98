@@ -41,6 +41,7 @@ Last but not least, our simulation will emulate a grocery store as closely as po
 1. first `git clone` the repository and use `make cashier` to generate the executable cashier program
 2. Open the executable `cashier` file.
 3. The program requires for 3 compulsory inputs and 2 optional inputs.
+
   | Input Information  | Size of the input |
   | --- | --- |
   | Number of customers| 0  - 2147483647   |
@@ -48,6 +49,7 @@ Last but not least, our simulation will emulate a grocery store as closely as po
   | Do you know the average spending of each customer and cost of each cashier | YES / NO |
   | Average spending of customers | 0  - 2147483647 |
   | Cost of each cashier | 0  - 2147483647 |
+  
 4. The program outputs all the number of served customers with respect to different number of cashiers
 5. The program outputs the best number of cashier according to the user's inputs
 
